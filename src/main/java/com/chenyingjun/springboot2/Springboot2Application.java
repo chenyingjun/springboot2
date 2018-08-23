@@ -1,5 +1,6 @@
 package com.chenyingjun.springboot2;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -13,9 +14,18 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+
+/**
+ * springboot2启动
+ *
+ * @author  chenyingjun
+ * @Date 2018年08月21日
+ * @since 1.0
+ */
 @SpringBootApplication
 @EnableSwagger2
 @ImportResource(value = { "classpath:applicationContext*.xml" })
+@MapperScan("com.chenyingjun.springboot2.mapper")
 public class Springboot2Application {
 
 	public static void main(String[] args) {

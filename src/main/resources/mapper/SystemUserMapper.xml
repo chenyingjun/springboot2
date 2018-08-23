@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenyingjun.springboot2.mapper.SystemUserMapper">
+  <resultMap id="BaseResultMap" type="com.chenyingjun.springboot2.entity.SystemUser">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="pass_word" jdbcType="VARCHAR" property="passWord" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="fail_num" jdbcType="INTEGER" property="failNum" />
+    <result column="del_flag" jdbcType="INTEGER" property="delFlag" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+    <result column="last_time" jdbcType="TIMESTAMP" property="lastTime" />
+    <result column="last_ip" jdbcType="VARCHAR" property="lastIp" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+
+  <resultMap id="infoResultMap" type="com.chenyingjun.springboot2.vo.SystemUserVo" extends="BaseResultMap">
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, name, account, nick_name, pass_word, email, phone, sex, fail_num, del_flag, status, 
+    login_time, login_ip, last_time, last_ip, create_time, update_time, remark
+  </sql>
+
+  <select id="info" resultMap="infoResultMap" parameterType="java.lang.String">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM SYSTEM_USER
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

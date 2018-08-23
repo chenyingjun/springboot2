@@ -1,12 +1,14 @@
 ## springboot2.x
 ### 环境：
-* springboot2.4
+* springboot：2.0.4
 * swagger2：2.8.0
 * jdk：1.8.0_111
 * alibaba Druid：1.1.10
-* config_toolkit:3.3.2-RELEASE
+* config_toolkit：3.3.2-RELEASE
+* mybatis
 
-###config_toolkit启动
+### config_toolkit启动
+
 -Dconfig.zookeeper.connectString=localhost:2181
 
 -Dconfig.rootNode=/project/module
