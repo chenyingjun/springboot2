@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:c="http://www.springframework.org/schema/c"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd"
+
+	   default-lazy-init="true">
+
+	<description>Spring公共配置</description>
+
+	<bean id="configProfile" class="com.dangdang.config.service.zookeeper.ZookeeperConfigProfile">
+		<constructor-arg name="connectStr"
+						 value="#{systemProperties['config.zookeeper.connectString']}" />
+		<constructor-arg name="rootNode" value="#{systemProperties['config.rootNode']}" />
+		<constructor-arg name="version" value="#{systemProperties['config.version']}" />
+	</bean>
+
+	<bean id="configGroupSources" class="com.dangdang.config.service.support.spring.ConfigGroupSourceFactory" factory-method="create">
+		<constructor-arg name="configGroups">
+			<list>
+				<bean class="com.dangdang.config.service.zookeeper.ZookeeperConfigGroup" c:configProfile-ref="configProfile" c:node="#{systemProperties['config.groupName']}"  c:enumerable="true"  />
+				<bean class="com.dangdang.config.service.zookeeper.ZookeeperConfigGroup"  c:configProfile-ref="configProfile" c:node="apps_common"  c:enumerable="true" />
+				<bean class="com.dangdang.config.service.file.FileConfigGroup">
+					<constructor-arg name="configProfile">
+						<bean class="com.dangdang.config.service.file.FileConfigProfile">
+							<constructor-arg name="fileEncoding" value="utf-8" />
+							<constructor-arg name="contentType" value="properties" />
+						</bean>
+					</constructor-arg>
+					<constructor-arg name="location" value="classpath:application.properties" />
+					<constructor-arg name="enumerable" value="true"/>
+				</bean>
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+		<property name="order" value="1" />
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="propertySources" ref="configGroupSources" />
+	</bean>
+
+</beans>
