@@ -2,7 +2,6 @@ package com.chenyingjun.springboot2.entity;
 
 import lombok.Data;
 
-import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
@@ -19,7 +18,6 @@ public class SystemUser implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(generator="UUID")
     private String id;
 
