@@ -1,6 +1,7 @@
 package com.chenyingjun.springboot2.service;
 
 import com.chenyingjun.springboot2.entity.SystemUser;
+import com.chenyingjun.springboot2.exception.BusinessException;
 import com.chenyingjun.springboot2.mapper.SystemUserMapper;
 import com.chenyingjun.springboot2.utils.GlobalUtil;
 import com.chenyingjun.springboot2.vo.SystemUserVo;
@@ -30,6 +31,9 @@ public class SystemUserService{
      * @return 组织列表
      */
     public SystemUserVo info(String id) {
+        if ("123".equals(id)) {
+            throw new BusinessException("aaaaa");
+        }
         SystemUserVo user = systemUserMapper.info(id);
         SystemUser systemUser = new SystemUser();
         systemUser.setNickName("超级管理员");
