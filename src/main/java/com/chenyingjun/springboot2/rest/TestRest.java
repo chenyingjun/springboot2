@@ -2,6 +2,7 @@ package com.chenyingjun.springboot2.rest;
 
 import com.chenyingjun.springboot2.bean.JsonResponse;
 import com.chenyingjun.springboot2.dto.SystemUserPageFind;
+import com.chenyingjun.springboot2.entity.SystemUser;
 import com.chenyingjun.springboot2.service.SystemUserService;
 import com.chenyingjun.springboot2.vo.SystemUserVo;
 import io.swagger.annotations.Api;
@@ -10,6 +11,8 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,6 +36,12 @@ public class TestRest {
 
     @Autowired
     private SystemUserService systemUserService;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     /**
      * 测试信息
@@ -60,6 +69,8 @@ public class TestRest {
             @ApiImplicitParam(paramType = "query", name = "id", value = "主键", dataType = "String"),})
     public SystemUserVo findById1(@RequestParam String id, @Valid SystemUserPageFind find) {
         SystemUserVo vo = systemUserService.info(id);
+        Object obj = stringRedisTemplate.opsForValue().get("user::userId_" + id);
+        System.out.println(obj);
         return vo;
     }
 }

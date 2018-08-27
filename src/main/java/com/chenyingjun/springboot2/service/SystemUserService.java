@@ -6,6 +6,7 @@ import com.chenyingjun.springboot2.mapper.SystemUserMapper;
 import com.chenyingjun.springboot2.utils.GlobalUtil;
 import com.chenyingjun.springboot2.vo.SystemUserVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -30,10 +31,13 @@ public class SystemUserService{
      * @param id 查询信息主键
      * @return 组织列表
      */
+    @Cacheable(key="'userId_'+#id", value="user")
     public SystemUserVo info(String id) {
+        System.out.println("-------------------------------------------------------");
         if ("123".equals(id)) {
             throw new BusinessException("aaaaa");
         }
+
         SystemUserVo user = systemUserMapper.info(id);
         SystemUser systemUser = new SystemUser();
         systemUser.setNickName("超级管理员");

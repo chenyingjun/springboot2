@@ -6,6 +6,8 @@
 * alibaba Druid：1.1.10
 * config_toolkit：3.3.2-RELEASE
 * mybatis
+* freemarker
+* redis
 
 ### config_toolkit启动
 
