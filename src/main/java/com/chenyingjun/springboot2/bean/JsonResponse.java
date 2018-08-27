@@ -34,7 +34,8 @@ public class JsonResponse {
         } else {
             this.code = EXCEPTION_SYSTEM;
             this.message = "系统发生错误，请联系管理员";
-            LoggerUtil.error(getClass(), "系统发生错误" + exception);
+            LoggerUtil.error(getClass(), "系统发生错误：" + exception);
+            exception.printStackTrace();
         }
 
     }
@@ -54,5 +55,4 @@ public class JsonResponse {
     public boolean authorizationError() {
         return this.code == 401;
     }
-
 }

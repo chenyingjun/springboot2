@@ -1,5 +1,7 @@
 package com.chenyingjun.springboot2.rest;
 
+import com.chenyingjun.springboot2.bean.JsonResponse;
+import com.chenyingjun.springboot2.dto.SystemUserPageFind;
 import com.chenyingjun.springboot2.service.SystemUserService;
 import com.chenyingjun.springboot2.vo.SystemUserVo;
 import io.swagger.annotations.Api;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.validation.Valid;
 
 /**
  * 测试
@@ -40,8 +44,22 @@ public class TestRest {
     @ApiOperation(value = "测试信息", notes = "测试信息")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "query", name = "id", value = "主键", dataType = "String"),})
-    public String findByVenueId(@RequestParam String id) {
+    public JsonResponse findById(@RequestParam String id, @Valid SystemUserPageFind find) {
+        return new JsonResponse(testConfigValue + id);
+    }
+
+    /**
+     * 测试信息
+     * @param id 主键
+     * @return list
+     */
+    @RequestMapping(value = "id1", method = RequestMethod.GET)
+    @ResponseBody
+    @ApiOperation(value = "测试信息", notes = "测试信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "id", value = "主键", dataType = "String"),})
+    public SystemUserVo findById1(@RequestParam String id, @Valid SystemUserPageFind find) {
         SystemUserVo vo = systemUserService.info(id);
-        return testConfigValue + id;
+        return vo;
     }
 }

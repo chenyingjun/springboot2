@@ -14,6 +14,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import static com.chenyingjun.springboot2.constant.ExceptionConsts.EXCEPTION_FORM_VALID;
@@ -110,7 +111,7 @@ public class MyControllerAdvice implements ResponseBodyAdvice<Object>{
         }
 
         //返回url
-        if (body instanceof String) {
+        if (body instanceof ModelAndView) {
             return body;
         }
         return new JsonResponse(body);
