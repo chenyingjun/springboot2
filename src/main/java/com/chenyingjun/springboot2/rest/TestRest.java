@@ -2,7 +2,6 @@ package com.chenyingjun.springboot2.rest;
 
 import com.chenyingjun.springboot2.bean.JsonResponse;
 import com.chenyingjun.springboot2.dto.SystemUserPageFind;
-import com.chenyingjun.springboot2.entity.SystemUser;
 import com.chenyingjun.springboot2.service.SystemUserService;
 import com.chenyingjun.springboot2.vo.SystemUserVo;
 import io.swagger.annotations.Api;
@@ -70,7 +69,8 @@ public class TestRest {
     public SystemUserVo findById1(@RequestParam String id, @Valid SystemUserPageFind find) {
         SystemUserVo vo = systemUserService.info(id);
         Object obj = stringRedisTemplate.opsForValue().get("user::userId_" + id);
+        Object obj1 = redisTemplate.opsForValue().get("user::userId_" + id);
         System.out.println(obj);
-        return vo;
+        return (SystemUserVo) obj1;
     }
 }
