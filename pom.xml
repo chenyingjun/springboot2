@@ -29,7 +29,7 @@
 		<lombok.version>1.16.6</lombok.version>
 		<lang3.version>3.4</lang3.version>
 		<hibernate.jpa.version>1.0.1.Final</hibernate.jpa.version>
-		<pagehelper.version>5.1.4</pagehelper.version>
+		<springboot2.pagehelper.version>1.2.5</springboot2.pagehelper.version>
 		<pool2.version>2.6.0</pool2.version>
 	</properties>
 
@@ -64,11 +64,6 @@
 			<groupId>org.hibernate.javax.persistence</groupId>
 			<artifactId>hibernate-jpa-2.0-api</artifactId>
 			<version>${hibernate.jpa.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.github.pagehelper</groupId>
-			<artifactId>pagehelper</artifactId>
-			<version>${pagehelper.version}</version>
 		</dependency>
 		<!-- 数据库结束 -->
 
@@ -148,6 +143,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper-spring-boot-starter</artifactId>
+			<version>${springboot2.pagehelper.version}</version>
 		</dependency>
 	</dependencies>
 

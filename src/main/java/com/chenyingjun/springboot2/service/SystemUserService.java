@@ -5,9 +5,13 @@ import com.chenyingjun.springboot2.exception.BusinessException;
 import com.chenyingjun.springboot2.mapper.SystemUserMapper;
 import com.chenyingjun.springboot2.utils.GlobalUtil;
 import com.chenyingjun.springboot2.vo.SystemUserVo;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 用户 服务
@@ -46,4 +50,16 @@ public class SystemUserService{
         return user;
     }
 
+    /**
+     * 查询列表
+     * @param pageNum 当前页码
+     * @param pageSize 每页数量
+     * @return page
+     */
+    public PageInfo<SystemUser> page(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<SystemUser> systemUserList = systemUserMapper.selectAll();
+        PageInfo<SystemUser> page = new PageInfo<>(systemUserList);
+        return page;
+    }
 }
