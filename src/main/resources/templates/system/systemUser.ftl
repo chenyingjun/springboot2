@@ -144,9 +144,9 @@
                                     <th td-name="rolesName">角色</th>
                                     <th td-name="email">邮箱</th>
                                     <th td-name="phone">手机号</th>
-                                    <th td-name="sex">性别</th>
+                                    <th td-name="sexName">性别</th>
                                     <th td-name="failNum">失败登录次数</th>
-                                    <th td-name="status">状态</th>
+                                    <th td-name="statusName">状态</th>
                                     <th td-name="createTime">创建时间</th>
                                     <th td-name="updateTime">修改时间</th>
                                     <th>操作</th>

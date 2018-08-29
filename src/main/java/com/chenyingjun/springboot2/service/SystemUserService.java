@@ -1,9 +1,11 @@
 package com.chenyingjun.springboot2.service;
 
+import com.chenyingjun.springboot2.dto.SystemUserPageFind;
 import com.chenyingjun.springboot2.entity.SystemUser;
 import com.chenyingjun.springboot2.exception.BusinessException;
 import com.chenyingjun.springboot2.mapper.SystemUserMapper;
 import com.chenyingjun.springboot2.utils.GlobalUtil;
+import com.chenyingjun.springboot2.vo.SystemUserPageVo;
 import com.chenyingjun.springboot2.vo.SystemUserVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -56,10 +58,10 @@ public class SystemUserService{
      * @param pageSize 每页数量
      * @return page
      */
-    public PageInfo<SystemUser> page(int pageNum, int pageSize) {
+    public PageInfo<SystemUserPageVo> page(SystemUserPageFind find, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<SystemUser> systemUserList = systemUserMapper.selectAll();
-        PageInfo<SystemUser> page = new PageInfo<>(systemUserList);
+        List<SystemUserPageVo> systemUserList = systemUserMapper.page(find);
+        PageInfo<SystemUserPageVo> page = new PageInfo<>(systemUserList);
         return page;
     }
 }

@@ -2,8 +2,8 @@ package com.chenyingjun.springboot2.rest;
 
 import com.chenyingjun.springboot2.bean.JsonResponse;
 import com.chenyingjun.springboot2.dto.SystemUserPageFind;
-import com.chenyingjun.springboot2.entity.SystemUser;
 import com.chenyingjun.springboot2.service.SystemUserService;
+import com.chenyingjun.springboot2.vo.SystemUserPageVo;
 import com.chenyingjun.springboot2.vo.SystemUserVo;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
@@ -88,7 +88,7 @@ public class TestRest {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "query", name = "pageNum", value = "当前页码", dataType = "int"),
             @ApiImplicitParam(paramType = "query", name = "pageSize", value = "每页数量", dataType = "int"),})
-    public PageInfo<SystemUser> page(int pageNum, int pageSize) {
-       return systemUserService.page(pageNum, pageSize);
+    public PageInfo<SystemUserPageVo> page(SystemUserPageFind find, int pageNum, int pageSize) {
+       return systemUserService.page(find, pageNum, pageSize);
     }
 }

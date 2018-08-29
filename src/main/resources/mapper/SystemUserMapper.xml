@@ -21,6 +21,19 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
+  <resultMap id="pageResultMap" type="com.chenyingjun.springboot2.vo.SystemUserPageVo">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="fail_num" jdbcType="VARCHAR" property="failNum" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
+    <result column="rolesName" jdbcType="VARCHAR" property="rolesName" />
+  </resultMap>
 
   <resultMap id="infoResultMap" type="com.chenyingjun.springboot2.vo.SystemUserVo" extends="BaseResultMap">
   </resultMap>
@@ -37,4 +50,42 @@
     WHERE id = #{id,jdbcType=VARCHAR}
   </select>
 
+  <select id="page" resultMap="pageResultMap" parameterType="com.chenyingjun.springboot2.dto.SystemUserPageFind">
+    SELECT
+    su.id, su.name, su.nick_name, su.email, su.phone, su.sex, su.fail_num, su.status,
+    su.create_time, su.update_time, group_concat(sr.name) as rolesName
+    FROM SYSTEM_USER su, system_user_role sur, system_role sr
+    <where>
+      AND su.id = sur.user_id
+      AND sur.role_id = sr.id
+      <if test="name != null">
+        AND su.NAME like concat('%',#{name, jdbcType=VARCHAR},'%')
+      </if>
+      <if test="nickName != null">
+        AND su.nick_name like concat('%',#{nickName, jdbcType=VARCHAR},'%')
+      </if>
+      <if test="phone != null">
+        AND su.phone like concat('%',#{phone, jdbcType=VARCHAR},'%')
+      </if>
+      <if test="sex != null">
+        AND su.sex = #{sex, jdbcType=VARCHAR}
+      </if>
+      <if test="userStatus != null">
+        AND su.status = #{userStatus, jdbcType=INTEGER}
+      </if>
+      <if test="startTime != null">
+        AND su.create_time &gt;= #{startTime, jdbcType=TIMESTAMP}
+      </if>
+      <if test="endTime != null">
+        AND su.create_time &lt;= #{endTime, jdbcType=TIMESTAMP}
+      </if>
+      <if test="roleIds != null">
+        AND sur.role_id in
+        <foreach item="item" index="index" collection="roleIds" open="(" separator="," close=")">
+          #{item}
+        </foreach>
+      </if>
+    </where>
+    GROUP BY su.id
+  </select>
 </mapper>
